@@ -8,10 +8,10 @@
     "build:client": "webpack --config build/webpack.config.client.js",
     "build:server": "webpack --config build/webpack.config.server.js",
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js",
-    "dev:server": "cross-env NODE_ENV=development nodemon server/server.js",
+    "dev:server": "nodemon server/server.js",
     "clear": "rimraf dist",
-		"build": "npm run clear && npm run build:client && npm run build:server",
-		"lint": "eslint --ext .js --ext .jsx client/",
+    "build": "npm run clear && npm run build:client && npm run build:server",
+    "lint": "eslint --ext .js --ext .jsx client/",
     "precommit": "npm run lint"
   },
   "author": "",
@@ -21,7 +21,8 @@
     "babel-loader": "^7.1.4",
     "express": "^4.16.3",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

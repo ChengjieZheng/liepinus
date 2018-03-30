@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom'
 import React from 'react'
 import App from './App.jsx'
-import { AppContainer } from 'react-hot-loader'
+import { AppContainer } from 'react-hot-loader' //eslint-disable-line
 
 const root = document.getElementById('root')
 // hot-module-replacement配置
