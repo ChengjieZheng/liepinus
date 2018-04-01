@@ -1,8 +1,11 @@
 import ReactDOM from 'react-dom'
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'mobx-react'
 import App from './views/App'
 import { AppContainer } from 'react-hot-loader' //eslint-disable-line
+
+import appState from './store/app-state'
 
 const root = document.getElementById('root')
 // hot-module-replacement配置
@@ -10,9 +13,11 @@ const root = document.getElementById('root')
 const render = (Component) => {
   ReactDOM.hydrate(
     <AppContainer>
-      <BrowserRouter>
-        <Component />
-      </BrowserRouter>
+      <Provider appState={appState}>
+        <BrowserRouter>
+          <Component />
+        </BrowserRouter>
+      </Provider>
     </AppContainer>,
     root,
   )
