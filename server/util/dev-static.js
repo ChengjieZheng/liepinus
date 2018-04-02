@@ -18,7 +18,9 @@ const getTemplate = () => {
         .then(res => {
             resolve(res.data)
         })
-        .catch(reject)
+        .catch(reject => {
+					console.error(reject)
+				})
     })
 }
 //用构造方法创建新的module用于string内容转换
@@ -28,7 +30,7 @@ const mfs = new MemoryFS
 const serverCompiler = webpack(serverConfig)
 //此前通过FS读写的文件，现在都通过mfs读写，速度超级快，哈哈，毕竟是内存，不是硬盘
 serverCompiler.outputFileSystem = mfs
-let serverBundle
+let serverBundle, createStoreMap
 serverCompiler.watch({}, (err, stats) => {
     if (err) throw err
     //stats是webpack打包时所输出的信息
@@ -45,7 +47,8 @@ serverCompiler.watch({}, (err, stats) => {
     const m = new Module()
     //用module解析String的内容，会生成一个新的模块
     m._compile(bundle, 'server-entry.js')
-    serverBundle = m.exports.default
+		serverBundle = m.exports.default
+		createStoreMap = m.exports.createStoreMap
 })
 
 module.exports = function (app) {
@@ -57,8 +60,20 @@ module.exports = function (app) {
     app.get('*', (req, res) => {
         //返回服务端渲染完成之后的结果返回给浏览器端
         getTemplate().then(template => {
-            const content = ReactDomServer.renderToString(serverBundle)
-            res.send(template.replace('<!-- app -->', content))
+
+					const routerContext = {}
+					const stores = createStoreMap()
+					const app = serverBundle(stores, routerContext, req.url)
+
+					if (routerContext.url) {
+						res.status(302).setHeader('Location', routerContext.url)
+						res.end()
+						return
+					}
+
+						const content = ReactDomServer.renderToString(app)
+
+						res.send(template.replace('<!-- app -->', content))
         })
     })
 }
