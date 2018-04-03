@@ -7,13 +7,15 @@ import { AppContainer } from 'react-hot-loader' //eslint-disable-line
 
 import AppState from './store/app-state'
 
+const initialState = window.__INITIAL__STATE__ || {} //eslint-disable-line
+
 const root = document.getElementById('root')
 // hot-module-replacement配置
 // AppContainer包裹我们的根节点想要渲染的实际的HTML内容
 const render = (Component) => {
   ReactDOM.hydrate(
     <AppContainer>
-      <Provider appState={new AppState()}>
+      <Provider appState={new AppState(initialState.appState)}>
         <BrowserRouter>
           <Component />
         </BrowserRouter>
