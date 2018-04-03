@@ -64,6 +64,7 @@ module.exports = function (app) {
 					const routerContext = {}
 					const stores = createStoreMap()
 					const app = serverBundle(stores, routerContext, req.url)
+					const content = ReactDomServer.renderToString(app)
 
 					if (routerContext.url) {
 						res.status(302).setHeader('Location', routerContext.url)
@@ -71,7 +72,7 @@ module.exports = function (app) {
 						return
 					}
 
-						const content = ReactDomServer.renderToString(app)
+
 
 						res.send(template.replace('<!-- app -->', content))
         })
