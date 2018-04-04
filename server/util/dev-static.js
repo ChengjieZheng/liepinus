@@ -22,15 +22,15 @@ const serverRender = require('./server-render')
 const serverConfig = require('../../build/webpack.config.server')
 //通过webpack-dev-server拿到实时最新的template文件
 const getTemplate = () => {
-    return new Promise((resolve, reject) => {
-        axios.get('http://localhost:8888/public/server.ejs')
-        .then(res => {
-            resolve(res.data)
-        })
-        .catch(reject => {
-					console.error(reject)
-				})
-    })
+	return new Promise((resolve, reject) => {
+		axios.get('http://localhost:8888/public/server.ejs')
+		.then(res => {
+			resolve(res.data)
+		})
+		.catch(reject => {
+			console.error(reject)
+		})
+	})
 }
 //用构造方法创建新的module用于string内容转换
 // const Module = module.constructor
@@ -105,7 +105,12 @@ module.exports = function (app) {
         target: 'http://localhost:8888'
     }))
     //获取template
-    app.get('*', (req, res, next) => {
+		app.get('*', (req, res, next) => {
+			// 判断server bundle是否存在，如果不存在，服务端渲染会报错，所以加入如下代码：
+			// 此问题在开发时会出现
+			if (!serverBundle) {
+				return res.send('Waiting for compile, refresh later')
+			}
         //返回服务端渲染完成之后的结果返回给浏览器端
         getTemplate().then(template => {
 
