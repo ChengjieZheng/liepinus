@@ -57,6 +57,9 @@ if (isDev) {
 		// 配置了对应关系，由于是单页应用开发，所有请求的url无法返回的，即404的，都应该返回这个html
 		historyApiFallback: {
 			index: '/public/index.html'
+		},
+		proxy: {
+			'/api': 'http://localhost:2333'
 		}
 	}
 	config.plugins.push(new webpack.HotModuleReplacementPlugin())

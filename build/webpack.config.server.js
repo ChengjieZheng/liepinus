@@ -9,6 +9,8 @@ module.exports = webpackMerge(baseConfig, {
 	entry: {
 		app: path.join(__dirname, '../client/server-entry.js')
 	},
+	//指定的某一些包不打包到输出的JS里
+	externals: Object.keys(require('../package.json').dependencies),
 	//出口文件指定
 	output: {
 		filename: 'server-entry.js',

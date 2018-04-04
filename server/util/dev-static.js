@@ -28,7 +28,21 @@ const getTemplate = () => {
     })
 }
 //用构造方法创建新的module用于string内容转换
-const Module = module.constructor
+// const Module = module.constructor
+const NativeModule = require('module')
+const vm = require('vm')
+//由于在服务端打包时，没有包含modules，所以需要用另一种方法获取modules
+const getModuleFromString = (bundle, filename) => {
+	const m = { exports: {} }
+	const wrapper = NativeModule.wrap(bundle)
+	const script = new vm.Script(wrapper, {
+		filename: filename,
+		displayErrors: true,
+	})
+	const result = script.runInThisContext()
+	result.call(m.exports, m.exports, require, m)
+	return m
+}
 const mfs = new MemoryFS
 //监听entry下面依赖的文件是否有变化，一旦有变化会重新去打包
 const serverCompiler = webpack(serverConfig)
@@ -48,9 +62,10 @@ serverCompiler.watch({}, (err, stats) => {
     )
 
     const bundle = mfs.readFileSync(bundlePath, 'utf-8')//注意是string内容，不是模块内容，需要转换
-    const m = new Module()
-    //用module解析String的内容，会生成一个新的模块
-    m._compile(bundle, 'server-entry.js')
+    // const m = new Module()
+    // //用module解析String的内容，会生成一个新的模块
+		// m._compile(bundle, 'server-entry.js')
+		const m = getModuleFromString(bundle, 'server-entry.js')
 		serverBundle = m.exports.default
 		createStoreMap = m.exports.createStoreMap
 })
@@ -87,7 +102,7 @@ module.exports = function (app) {
 						const state = getSotreState(stores)
 						const content = ReactDomServer.renderToString(app)
 						// res.send(template.replace('<!-- app -->', content))
-						console.log(state);
+						// console.log(state);
 						const html = ejs.render(template, {
 							appString: content,
 							initialState: serialize(state),

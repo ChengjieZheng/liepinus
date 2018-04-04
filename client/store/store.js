@@ -7,16 +7,9 @@ export default {
 
 }
 
-// export const createStoreMap = () => {
-// 	return {
-// 		// 服务端渲染专用
-// 		appState: new AppState(),
-// 	}
-// }
-
-export const createStoreMap = function () {
-	return {
-		// 服务端渲染专用
+// 服务端渲染用
+export const createStoreMap = () => (
+	{
 		appState: new AppState(),
 	}
-}
+)
