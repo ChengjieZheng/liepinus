@@ -12,6 +12,7 @@ const ejs = require('ejs')
 //数据相关
 const asyncBootstrap = require('react-async-bootstrapper').default
 const ReactDomServer = require('react-dom/server')
+const Helmet = require('react-helmet').default
 //获取server端的bundle文件，因为Server端的bundle文件是通过webpack.server这个配置文件去启动webpack之后，才能拿到bundle，而且我们修改了任何client下面所有的文件，都是会需要去实时的更新我们的bundle的内容
 //通过webpack打包的内容获取结果
 const serverConfig = require('../../build/webpack.config.server')
@@ -113,6 +114,8 @@ module.exports = function (app) {
 							res.end()
 							return
 						}
+						// 拿到当前页面显示的title, description等等head信息
+						const helmet = Helmet.rewind()
 						// console.log(stores.appState.count)
 						const state = getSotreState(stores)
 						const content = ReactDomServer.renderToString(app)
@@ -121,6 +124,10 @@ module.exports = function (app) {
 						const html = ejs.render(template, {
 							appString: content,
 							initialState: serialize(state),
+							meta: helmet.meta.toString(),
+							title: helmet.title.toString(),
+							style: helmet.style.toString(),
+							link: helmet.link.toString()
 						})
 						res.send(html)
 					})
