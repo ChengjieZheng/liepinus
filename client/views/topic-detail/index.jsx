@@ -1,4 +1,5 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 
 export default class TopicList extends React.Component {
   componentDidMount() {
@@ -8,7 +9,13 @@ export default class TopicList extends React.Component {
   render() {
     return (
       <div>
-        This is topic detail
+				<Helmet>
+					<title>This is topic details</title>
+					<meta name="description" content="This is details" />
+				</Helmet>
+				<article>
+					<h1>This is topic detail</h1>
+				</article>
       </div>
     )
   }
