@@ -29,11 +29,25 @@ const getTemplate = () => {
 }
 //用构造方法创建新的module用于string内容转换
 // const Module = module.constructor
+
+//由于在服务端打包时，没有包含modules，所以需要用另一种方法获取modules，这个方法也比较hack
+//
 const NativeModule = require('module')
 const vm = require('vm')
-//由于在服务端打包时，没有包含modules，所以需要用另一种方法获取modules
+
 const getModuleFromString = (bundle, filename) => {
 	const m = { exports: {} }
+	// NativeModule里有个wrap方法，可以把可执行的JS代码包装一下
+	// 包装成类似于如下代码：`(function(exports, require, module, __filename, __dirname){ 这里是真正传进去的bundle要执行的代码：...bundle code })`
+	// 当如此包装之后的效果为：可以手动传入exports，这个exports就是我们代码在执行是的module.exports是一样的效果
+	// 括号内的参数对应的都是执行环境内的export, require, module, 这样我们就能传入这些定制的参数。
+	// 最后会形成字符串
+	// 为了要执行js字符串的代码，可使用vm里的script类，就能跑这部分JS代码，并能指定context,即执行环境。由于没有特殊的执行环境的要求，所以只要使用runInThisContext方法即可，无需指定其他执行环境
+	// 执行环境的意义是：在我们这段{}代码中，如果我们会调用一些全局变量，如process.env.NODE_ENV。其中process就是全局对象，就是执行环境的上下文。我们无需指定特殊的context，使用当前的即可
+	// const result = script.runInThisContext()即可执行，执行时可以让他指定m.export作为调用者，去掉用result代码，并一一对应上面所提到的参数（exports, require等等），其中module也就是我们的m
+	// 通过这种方式，实际执行我们代码中的...bundle code，执行完成后把m.exports都附着在m对象上，这样就能拿到我们想要的东西了（解决了react module找不到的问题）
+	// 如何解决了react module找不到的问题？我们的require是我们传进去的当前环境中的require，他当然是可以require我们node_modules里面的代码
+	// 这就是拿到一个string代码，然后如何去调用的方式，这个方式很常规，不会有问题
 	const wrapper = NativeModule.wrap(bundle)
 	const script = new vm.Script(wrapper, {
 		filename: filename,
@@ -43,6 +57,7 @@ const getModuleFromString = (bundle, filename) => {
 	result.call(m.exports, m.exports, require, m)
 	return m
 }
+
 const mfs = new MemoryFS
 //监听entry下面依赖的文件是否有变化，一旦有变化会重新去打包
 const serverCompiler = webpack(serverConfig)
