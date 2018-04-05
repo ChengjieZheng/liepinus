@@ -45,7 +45,7 @@ if (!isDev) {
 // req, res, next虽然在error处理中是用不到的，但是还是要把这3个参数传递进来。因为Express回去读取参数的长度来判断这个到底是不是一个error handler
 // 如果是，就会使用error hendler的处理方式来处理中间件
 	app.use(function(error, req, res, next) {
-		console.log(err)
+		console.log(error)
 		res.status(500).send(error)
 	})
 
