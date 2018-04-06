@@ -32,6 +32,8 @@ const config = webpackMerge(baseConfig, {
 	]
 })
 if (isDev) {
+	// 这是webpack dev tool的选项，它能够形成source map 让我们浏览器端，调试时，实际调试的是没有编译过的代码，可以快速找到问题所在
+	config.devtool = "#cheap-module-eval-source-map"
 	// app中的数组代表一个entry包含了很多引用的文件，会打包到一个文件里去
 	// 使用hot-module-replacement热更新需要用的内容配置
 	config.entry = {
@@ -44,7 +46,7 @@ if (isDev) {
 		host: '0.0.0.0',
 		port: '8888',
 		// 静态文件的地址
-		contentBase: path.join(__dirname, '../dist'),
+		// contentBase: path.join(__dirname, '../dist'),
 		// 启动hot module replacement, 当前并没有在React中配置hot module replacement的相关的模块，因为hot module replacement会在JS中注入部分代码
 		hot: true,
 		// webpack编译过程中，如果出现错误，则在网页显示黑色背景的错误信息

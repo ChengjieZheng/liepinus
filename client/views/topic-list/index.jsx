@@ -3,13 +3,17 @@ import { observer, inject } from 'mobx-react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import Button from 'material-ui/Button'
+import { withStyles } from 'material-ui/styles'
 
 import { AppState } from '../../store/app-state'
+import Container from '../layout/container'
+import topicListStyles from './topic-list-style'
+
 
 // 植入pops上的obj数据名，并使用observer监听
 @inject('appState') @observer
 
-export default class TopicList extends React.Component {
+class TopicList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -39,8 +43,9 @@ export default class TopicList extends React.Component {
 	}
 
   render() {
+		const { classes } = this.props
     return (
-      <div>
+      <Container>
 				<Helmet>
 					<title>This is topic list</title>
 					<meta name="description" content="This is description" />
@@ -48,7 +53,10 @@ export default class TopicList extends React.Component {
 				<Button raised="true" color="primary">This is a button</Button>
 				<input type="text" onChange={this.changeName} />
         <span>{this.props.appState.msg}</span>
-      </div>
+				<div className={classes.divSize}>
+					<p className={classes.fontP}>CSS test</p>
+				</div>
+      </Container>
     )
   }
 }
@@ -56,3 +64,9 @@ export default class TopicList extends React.Component {
 TopicList.propTypes = {
   appState: PropTypes.instanceOf(AppState),
 }
+
+TopicList.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+export default withStyles(topicListStyles)(TopicList)
