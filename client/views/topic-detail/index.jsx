@@ -15,6 +15,9 @@ export default class TopicList extends React.Component {
 				</Helmet>
 				<article>
 					<h1>This is topic detail</h1>
+					<h1>This is topic detail</h1>
+					<h1>This is topic detail</h1>
+					<h1>This is topic detail!!</h1>
 				</article>
       </div>
     )
