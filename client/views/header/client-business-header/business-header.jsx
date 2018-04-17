@@ -19,11 +19,11 @@ import ListItemText from 'material-ui/List/ListItemText'
 import Menu from 'material-ui-icons/Menu'
 
 // import routes and styles
-import clientStatusRoutes from '../../../config/client-status-routes'
+import BusinessStatusRoutes from '../../../config/business-status-routes'
 import clientBusinessHeaderStyles from './client-business-header-styles'
 
 /* eslint-disable */
-class ClientHeader extends React.Component {
+class BusinessHeader extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -39,7 +39,7 @@ class ClientHeader extends React.Component {
 		console.error(classes)
     const list = (
       <List className={classes.list}>
-				{clientStatusRoutes.map((prop, key) => {
+				{BusinessStatusRoutes.map((prop, key) => {
 					if (prop.redirect) {
 						return null
 					}
@@ -105,8 +105,8 @@ class ClientHeader extends React.Component {
   }
 }
 /* eslint-enable */
-ClientHeader.propTypes = {
+BusinessHeader.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(clientBusinessHeaderStyles)(ClientHeader)
+export default withStyles(clientBusinessHeaderStyles)(BusinessHeader)

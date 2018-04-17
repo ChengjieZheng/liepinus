@@ -1,5 +1,5 @@
 // material-ui-icons
-import PersonAdd from 'material-ui-icons/PersonAdd';
+// import PersonAdd from 'material-ui-icons/PersonAdd';
 import Fingerprint from 'material-ui-icons/Fingerprint';
 import MonetizationOn from 'material-ui-icons/MonetizationOn';
 import LockOpen from 'material-ui-icons/LockOpen';
@@ -16,33 +16,49 @@ const clientStatusRoutes = [
   },
   {
     path: '/#',
-    name: 'Products',
-    short: 'Products',
-    mini: 'PD',
+    name: 'Starffing Page',
+    short: 'Starffing Page',
+    mini: 'SP',
     icon: Fingerprint,
     // component: LoginPage
   },
   {
     path: '/#',
-    name: 'Job Page',
-    short: 'Job',
-    mini: 'JB',
+    name: 'Branding and Marketing Page',
+    short: 'Branding & Marketing',
+    mini: 'BMP',
     icon: MonetizationOn,
     // component: PricingPage
   },
   {
+    path: '/#',
+    name: 'Customized Session Page',
+    short: 'Customized Session',
+    mini: 'CSP',
+    icon: LockOpen,
+    // component: LockScreenPage
+  },
+  {
+    path: '/#',
+    name: 'Excutive Traning Program Page',
+    short: 'Excutive Traning Program',
+    mini: 'ETPP',
+    icon: LockOpen,
+    // component: LockScreenPage
+	},
+	{
     path: '/#',
     name: 'Events Page',
     short: 'Events',
     mini: 'EP',
     icon: LockOpen,
     // component: LockScreenPage
-  },
-  {
+	},
+	{
     path: '/#',
     name: 'About Page',
     short: 'About',
-    mini: 'LSP',
+    mini: 'AP',
     icon: LockOpen,
     // component: LockScreenPage
 	},
@@ -52,14 +68,6 @@ const clientStatusRoutes = [
     short: 'Chinese / English',
     mini: 'COEB',
     icon: LockOpen,
-    // component: LockScreenPage
-  },
-  {
-    path: '/#',
-    name: 'Login And Register Page',
-    short: 'Login / Register',
-    mini: 'LRP',
-    icon: PersonAdd,
     // component: LockScreenPage
   },
   {
