@@ -1,7 +1,7 @@
 import React from 'react'
 // import { Link } from 'react-router-dom'
 import Route from '../config/router'
-import AppBar from './layout/appbar'
+// import AppBar from './layout/appbar'
 
 class App extends React.Component {
   componentDidMount() {
@@ -10,7 +10,6 @@ class App extends React.Component {
 
 	render() {
     return [
-			<AppBar />,
       <Route key="route" />,
     ]
   }
