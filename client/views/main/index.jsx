@@ -29,12 +29,12 @@ class Main extends React.Component {
 					</h1>
 					<h2 className={classes.centerWord}>LIEPIN&nbsp;&nbsp;NORTH&nbsp;&nbsp;AMERICA</h2>
 					<div className={classes.centerButton}>
-						<Link to="/home/client" className={classes.textDecoration}>
+						<Link to="/client" className={classes.textDecoration}>
 							<Button variant="raised" size="large" color="secondary" className={classes.button}>
 								client
 							</Button>
 						</Link>
-						<Link to="/home/business" className={classes.textDecoration}>
+						<Link to="/business" className={classes.textDecoration}>
 							<Button variant="raised" size="large" color="primary" className={classes.button}>
 								Business
 							</Button>
