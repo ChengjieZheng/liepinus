@@ -1,15 +1,13 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router'
-// import TopicList from '../views/topic-list/index'
-import TopicDetail from '../views/topic-detail/index'
-import TestApi from '../views/test/api-test'
-import About from '../views/about/index'
+
 import Home from '../views/main/index'
+import ClientHome from '../views/consumer/index'
+import BusinessHome from '../views/business/index'
 
 export default () => [
   <Route path="/" render={() => <Redirect to="/home" />} exact key="first" />,
   <Route path="/home" component={Home} key="home" />,
-	<Route path="/detail" component={TopicDetail} key="detail" />,
-	<Route path="/test" component={TestApi} key="test" />,
-	<Route path="/about" component={About} key="about" />,
+	<Route path="/client" component={ClientHome} key="client" />,
+	<Route path="/business" component={BusinessHome} key="business" />,
 ]

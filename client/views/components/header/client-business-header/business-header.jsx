@@ -19,7 +19,7 @@ import ListItemText from 'material-ui/List/ListItemText'
 import Menu from 'material-ui-icons/Menu'
 
 // import routes and styles
-import BusinessStatusRoutes from '../../../config/business-status-routes'
+import BusinessStatusRoutes from '../../../../config/business-status-routes'
 import clientBusinessHeaderStyles from './client-business-header-styles'
 
 /* eslint-disable */

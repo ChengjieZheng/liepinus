@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // material-ui components
 import withStyles from 'material-ui/styles/withStyles'
@@ -29,16 +29,16 @@ class Main extends React.Component {
 					</h1>
 					<h2 className={classes.centerWord}>LIEPIN&nbsp;&nbsp;NORTH&nbsp;&nbsp;AMERICA</h2>
 					<div className={classes.centerButton}>
-						<NavLink to="/about" className={classes.textDecoration}>
+						<Link to="/home/client" className={classes.textDecoration}>
 							<Button variant="raised" size="large" color="secondary" className={classes.button}>
 								client
 							</Button>
-						</NavLink>
-						<NavLink to="/about" className={classes.textDecoration}>
+						</Link>
+						<Link to="/home/business" className={classes.textDecoration}>
 							<Button variant="raised" size="large" color="primary" className={classes.button}>
 								Business
 							</Button>
-						</NavLink>
+						</Link>
 					</div>
 				</article>
 			</section>

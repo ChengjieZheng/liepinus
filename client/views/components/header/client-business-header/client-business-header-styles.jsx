@@ -4,7 +4,7 @@ import {
 	boxShadow,
 	transition,
 	drawerWidth,
-} from '../../assets/jss/index'
+} from '../../../assets/jss/index'
 
 const clientBusinessHeaderStyles = theme => ({
   appBar: {
