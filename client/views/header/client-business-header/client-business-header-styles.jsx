@@ -1,4 +1,10 @@
-import { container, defaultFont, boxShadow, transition, drawerWidth } from '../../assets/jss/index'
+import {
+	container,
+	defaultFont,
+	boxShadow,
+	transition,
+	drawerWidth,
+} from '../../assets/jss/index'
 
 const clientBusinessHeaderStyles = theme => ({
   appBar: {
@@ -21,8 +27,6 @@ const clientBusinessHeaderStyles = theme => ({
   container: {
     ...container,
 		minHeight: '50px',
-		width: '70%',
-		margin: '0 auto',
   },
   flex: {
     flex: 1,
