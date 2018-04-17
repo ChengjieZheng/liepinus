@@ -74,45 +74,45 @@ class ClientHeader extends React.Component {
       </List>
     )
     return (
-      <AppBar position='fixed' className={classes.appBar}>
-				<Toolbar className={classes.container}>
-					<div className={classes.flex}>
-						<Button herf="#" className={classes.title}>
-							Liepinus
-						</Button>
-					</div>
-					<Hidden smDown implementation="css">
-						{ list }
-					</Hidden>
-					<Hidden mdUp>
-						<IconButton
-							className={classes.sidebarButton}
-							color="inherit"
-							aria-label="open drawer"
-							onClick={this.handleDrawerToggle}
-						>
-						<Menu />
-						</IconButton>
-					</Hidden>
-					<Hidden mdUp implementation="css">
-						<Hidden mdUp>
-							<Drawer
-								variant="temporary"
-								anchor="right"
-								open={this.state.open}
-								classes={{
-									paper: classes.drawerPaper,
-								}}
-								onClose={this.handleDrawerToggle}
-								ModalProps={{
-									keepMounted: true,
-								}}
-							>
-								{list}
-							</Drawer>
-						</Hidden>
-					</Hidden>
-				</Toolbar>
+			<AppBar position="fixed" className={classes.appBar}>
+        <Toolbar className={classes.container}>
+          <div className={classes.flex}>
+            <Button href="#" className={classes.title}>
+              Liepinus
+            </Button>
+          </div>
+          <Hidden smDown implementation="css">
+            {list}
+          </Hidden>
+          <Hidden mdUp>
+            <IconButton
+              className={classes.sidebarButton}
+              color="inherit"
+              aria-label="open drawer"
+              onClick={this.handleDrawerToggle}
+            >
+              <Menu />
+            </IconButton>
+          </Hidden>
+          <Hidden mdUp implementation="css">
+            <Hidden mdUp>
+              <Drawer
+                variant="temporary"
+                anchor="right"
+                open={this.state.open}
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+                onClose={this.handleDrawerToggle}
+                ModalProps={{
+                  keepMounted: true, // Better open performance on mobile.
+                }}
+              >
+                {list}
+              </Drawer>
+            </Hidden>
+          </Hidden>
+        </Toolbar>
       </AppBar>
     )
   }
