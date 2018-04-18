@@ -23,6 +23,7 @@
 		"arrow-body-style": [0],
 		"react/jsx-indent-props": [0],
 		"prefer-template": [0],
-		"react/prefer-stateless-function": [0]
+		"react/prefer-stateless-function": [0],
+		"max-len": [0]
 		}
 	}
