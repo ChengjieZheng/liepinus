@@ -36,7 +36,6 @@ class ClientHeader extends React.Component {
 	}
   render() {
     const { classes } = this.props
-		console.error(classes)
     const list = (
       <List className={classes.list}>
 				{clientStatusRoutes.map((prop, key) => {

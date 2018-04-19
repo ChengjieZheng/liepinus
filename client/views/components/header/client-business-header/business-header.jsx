@@ -36,7 +36,6 @@ class BusinessHeader extends React.Component {
 	}
   render() {
     const { classes } = this.props
-		console.error(classes)
     const list = (
       <List className={classes.list}>
 				{BusinessStatusRoutes.map((prop, key) => {
