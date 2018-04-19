@@ -23,8 +23,12 @@ export default class AppState {
 	// 	}
 	// }
 	@observable language = true
-
 	@action changeLanguage() {
 		this.language = !this.language
+	}
+	toJson() {
+		return {
+			language: this.language,
+		}
 	}
 }
