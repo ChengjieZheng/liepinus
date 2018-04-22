@@ -6,7 +6,7 @@ class BusinessHome extends React.Component {
 		return (
 			<div>
 				<BusinessHeader />
-				<h1>This is Client Home page</h1>
+				<h1>This is Business Home page</h1>
 			</div>
 		)
 	}

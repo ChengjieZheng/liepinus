@@ -36,8 +36,8 @@ module.exports = (bundle, template, req, res) => {
 		jss.options.createGenerateClassName = createGenerateClassName
 		const theme = createMuiTheme({
 			palette: {
-				primary: colors.pink,
-				accent: colors.lightBlue,
+				primary: colors.lightBlue,
+				accent: colors.pink,
 				type: 'light'
 			}
 		})
