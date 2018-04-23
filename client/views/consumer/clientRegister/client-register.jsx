@@ -9,7 +9,8 @@ import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
-import List, { ListItem } from 'material-ui/List';
+import List from 'material-ui/List';
+import TextField from 'material-ui/TextField'
 
 // 如果props里面没有history，则使用如下方法获得
 // import { withRouter } from 'react-router-dom'
@@ -24,9 +25,9 @@ class ClientRegister extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			// username: '',
+			username: '',
 			password: '',
-			showPassword: false,
+			type: 'client',
 		}
 	}
 
@@ -44,19 +45,11 @@ class ClientRegister extends React.Component {
     this.setState({ [prop]: event.target.value });
   };
 
-  handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  handleClickShowPassword = () => {
-    this.setState({ showPassword: !this.state.showPassword });
-	};
-
 	handleSubmit = () => {
 		axios.post('/api/user/register', {
-			user: 'test02',
+			user: this.state.username,
 			pwd: this.state.password,
-			type: 'client',
+			type: this.state.type,
 		})
 		.then(res => {
 			if (res.status === 200 && res.data.code === 0) {
@@ -77,24 +70,28 @@ class ClientRegister extends React.Component {
 				<Card className={classes.root}>
 					<CardContent className={classes.middle}>
 						<FormControl className={classNames(classes.margin, classes.textField)}>
-							<InputLabel htmlFor="adornment-password">password</InputLabel>
-							<Input
-								id="adornment-password"
-								type={this.state.showPassword ? 'text' : 'password'}
-								value={this.state.password}
-								onChange={this.handleChange('password')}
-								endAdornment={
-									<InputAdornment position="end">
-										<IconButton
-											aria-label="Toggle password visibility"
-											onClick={this.handleClickShowPassword}
-											onMouseDown={this.handleMouseDownPassword}
-										>
-											{this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-										</IconButton>
-									</InputAdornment>
-								}
-							/>
+							<List>
+								<TextField
+									id="username-input"
+									label="Username"
+									className={classes.usernameHolder}
+									value={this.state.username}
+									onChange={this.handleChange('username')}
+									margin="normal"
+								/>
+							</List>
+							<List>
+								<TextField
+									id="password-input"
+									label="Password"
+									className={classes.usernameHolder}
+									value={this.state.password}
+									onChange={this.handleChange('password')}
+									type="password"
+									autoComplete="current-password"
+									margin="normal"
+								/>
+							</List>
 						</FormControl>
 						<CardActions>
 							<Button size="large" fullWidth color="secondary" onClick={this.handleSubmit}>Submit</Button>
