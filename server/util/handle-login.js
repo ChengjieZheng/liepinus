@@ -7,34 +7,26 @@ const _filter = {'pwd':0, '__v': 0}
 
 // User.remove({}, function(err, doc){})
 
-router.get('/test', function(req,res) {
-	return res.json({code:1})
+router.post('/login', function(req, res){
+  const {user,pwd} = req.body;
+  User.findOne({user,pwd:md5Pwd(pwd)},_filter,function(err, doc){// not return pwd
+    if (!doc) {
+      return res.json({code:1, msg: 'username or password is not currect'})
+    }
+    res.cookie('userid', doc._id)
+    return res.json({code:0,data:doc})
+  })
 })
-
-router.get('/hello', function(req, res) {
-	return res.json({code:2})
-})
-
-// router.post('/login', function(req, res){
-//   const {user,pwd} = req.body;
-//   User.findOne({user,pwd:md5Pwd(pwd)},_filter,function(err, doc){//not return pwd
-//     if (!doc) {
-//       return res.json({code:1, msg: 'username or password is not currect'})
-//     }
-//     res.cookie('userid', doc._id)
-//     return res.json({code:0,data:doc})
-//   })
-// })
 
 router.post('/register', function(req,res){
 	console.log("data from client: ", req.body)
   const {user, pwd, email, type} = req.body
-  //if user already registed, return message to client:"username is already there"
+  // if user already registed, return message to client:"username is already there"
   User.findOne({user:user}, function(err,doc){
     if (doc) {
       return res.json({code:1, msg: '用户名重复'})
     }
-    //create方法不能发挥生成后的ID，所有我们改用Save方法
+    // create方法不能发挥生成后的ID，所有我们改用Save方法
     const userModel = new User({user, type, email, pwd:md5Pwd(pwd)})
     userModel.save(function(err, doc) {
       if(err) {

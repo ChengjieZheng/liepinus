@@ -107,8 +107,8 @@ class ClientRegister extends React.Component {
 		.catch(error => error)
 	}
 
-	handleRegister = () => {
-		console.log(this.props)
+	handleLogin = () => {
+		this.props.history.push('/client/login')
 	}
 
 	render() {
@@ -160,10 +160,10 @@ class ClientRegister extends React.Component {
 								</List>
 							</FormControl>
 							<CardActions>
-								<Button size="large" fullWidth color="secondary" onClick={this.handleSubmit}>Submit</Button>
+								<Button size="large" fullWidth color="secondary" onClick={this.handleSubmit}>Register</Button>
 							</CardActions>
 							<CardActions>
-								<Button size="large" fullWidth color="secondary" onClick={this.handleRegister}>Register</Button>
+								<Button size="large" fullWidth color="secondary" onClick={this.handleLogin}>login</Button>
 							</CardActions>
 						</CardContent>
 					</Card>
@@ -177,7 +177,7 @@ class ClientRegister extends React.Component {
 
 ClientRegister.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
 export default withStyles(clientRegisterStyles)(ClientRegister)
 

@@ -4,7 +4,7 @@ import Fingerprint from 'material-ui-icons/Fingerprint';
 import MonetizationOn from 'material-ui-icons/MonetizationOn';
 import LockOpen from 'material-ui-icons/LockOpen';
 import Dashboard from 'material-ui-icons/Dashboard'
-import ClientLoginAndRegister from '../views/consumer/clientRegister/client-register'
+import ClientRegister from '../views/consumer/client-register/client-register'
 
 const clientStatusRoutes = [
   {
@@ -61,7 +61,7 @@ const clientStatusRoutes = [
     short: 'Login / Register',
     mini: 'LRP',
     icon: PersonAdd,
-    component: ClientLoginAndRegister,
+    component: ClientRegister,
   },
   {
     redirect: true,
