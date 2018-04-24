@@ -1,7 +1,8 @@
 const clientRegisterStyles = theme => ({
   root: {
     display: 'flex',
-    flexWrap: 'wrap',
+		flexWrap: 'wrap',
+		marginTop: '20px',
   },
   margin: {
 		margin: theme.spacing.unit,

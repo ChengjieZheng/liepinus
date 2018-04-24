@@ -5,6 +5,8 @@ const model = require('../db/model')
 const User = model.getModel('user')
 const _filter = {'pwd':0, '__v': 0}
 
+// User.remove({}, function(err, doc){})
+
 router.get('/test', function(req,res) {
 	return res.json({code:1})
 })
@@ -26,21 +28,21 @@ router.get('/hello', function(req, res) {
 
 router.post('/register', function(req,res){
 	console.log("data from client: ", req.body)
-  const {user, pwd, type} = req.body
+  const {user, pwd, email, type} = req.body
   //if user already registed, return message to client:"username is already there"
   User.findOne({user:user}, function(err,doc){
     if (doc) {
       return res.json({code:1, msg: '用户名重复'})
     }
     //create方法不能发挥生成后的ID，所有我们改用Save方法
-    const userModel = new User({user, type, pwd:md5Pwd(pwd)})
+    const userModel = new User({user, type, email, pwd:md5Pwd(pwd)})
     userModel.save(function(err, doc) {
       if(err) {
         return res.json({code:1, msg: 'back-end error'})
       }
-      const {user, type, _id} = doc;
+      const {user, type, email, _id} = doc;
       res.cookie('userid', _id)
-      return res.json({code:0, data:{user, type, _id}})
+      return res.json({code:0, data:{user, type, email, _id}})
     })
 	})
 })
