@@ -12,7 +12,7 @@ import Button from 'material-ui/Button'
 import List from 'material-ui/List';
 import TextField from 'material-ui/TextField'
 import Grid from 'material-ui/Grid';
-
+// import { observer, inject } from 'mobx-react'
 // 如果props里面没有history，则使用如下方法获得
 // import { withRouter } from 'react-router-dom'
 // @withRouter
@@ -21,6 +21,8 @@ import axios from 'axios'
 
 import clientRegisterStyles from './client-register-styles'
 import ClientHeader from '../../components/header/client-business-header/client-header'
+
+// @inject('appState') @observer
 
 class ClientRegister extends React.Component {
 	constructor(props) {
@@ -36,15 +38,9 @@ class ClientRegister extends React.Component {
 		}
 	}
 
-	// componentDidMount() {
-	// 	axios.get('/api/user/test')
-	// 	.then(res => console.log('1', res.data))
-	// 	.catch(error => console.log(error))
-	// 	axios.get('/api/user/hello')
-	// 	.then(res => console.log('2', res.data))
-	// 	.catch(error => console.log(error))
-	// 	console.log(this.props.history)
-	// }
+	componentDidMount() {
+		console.log(this.props)
+	}
 
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });

@@ -12,11 +12,14 @@ import Button from 'material-ui/Button'
 import List from 'material-ui/List';
 import TextField from 'material-ui/TextField'
 import Grid from 'material-ui/Grid';
+import { observer, inject } from 'mobx-react'
 
 import axios from 'axios'
 
 import clientLoginStyles from './client-login-styles'
 import ClientHeader from '../../components/header/client-business-header/client-header'
+
+@inject('appState') @observer
 
 class ClientLogin extends React.Component {
 	constructor(props) {
@@ -72,6 +75,14 @@ class ClientLogin extends React.Component {
 			if (res.status === 200 && res.data.code === 0) {
 				console.log('data from server: ', res.data)
 				console.log('success')
+				const {
+					_id,
+					user,
+					email,
+					type,
+				} = res.data.data
+				const isClientLogin = true
+				this.props.appState.clientRegisterInfo(_id, user, email, type, isClientLogin)
 				this.props.history.push('/client/dashboard')
 			} else {
 				console.log('data: ', res.data)

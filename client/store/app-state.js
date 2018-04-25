@@ -22,12 +22,42 @@ export default class AppState {
 	// 		name: this.name,
 	// 	}
 	// }
+
+	constructor(clientId, clientName, clientEmail, userType, isClientLogin) {
+		this.clientId = clientId
+		this.clientName = clientName
+		this.clientEmail = clientEmail
+		this.userType = userType
+		this.isClientLogin = isClientLogin
+	}
+	@observable clientId
+	@observable clientName
+	@observable clientEmail
+	@observable userType
+	@observable isClientLogin
+
+	// handle client login data ///////
+	@action clientRegisterInfo(clientId, clientName, clientEmail, userType, isClientLogin) {
+		this.clientId = clientId
+		this.clientName = clientName
+		this.clientEmail = clientEmail
+		this.userType = userType
+		this.isClientLogin = isClientLogin
+	}
+	// /////////////////////////////
+
+	// handle language change ///////
 	@observable language = true
 	@action changeLanguage() {
 		this.language = !this.language
 	}
+	// ///////////////////////////////
 	toJson() {
 		return {
+			username: this.username,
+			password: this.password,
+			email: this.email,
+			type: this.type,
 			language: this.language,
 		}
 	}
