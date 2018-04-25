@@ -23,7 +23,10 @@ const clientLoginStyles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 200,
-  },
+	},
+	errMsg: {
+		color: 'red',
+	},
 })
 
 export default clientLoginStyles

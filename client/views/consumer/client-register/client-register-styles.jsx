@@ -23,7 +23,11 @@ const clientRegisterStyles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 200,
-  },
+	},
+	errMsg: {
+		color: 'red',
+		textAlign: 'center',
+	},
 })
 
 export default clientRegisterStyles

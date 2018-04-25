@@ -24,7 +24,7 @@ router.post('/register', function(req,res){
   // if user already registed, return message to client:"username is already there"
   User.findOne({user:user}, function(err,doc){
     if (doc) {
-      return res.json({code:1, msg: '用户名重复'})
+      return res.json({code:1, msg: 'Username is occupied'})
     }
     // create方法不能发挥生成后的ID，所有我们改用Save方法
     const userModel = new User({user, type, email, pwd:md5Pwd(pwd)})
@@ -40,7 +40,7 @@ router.post('/register', function(req,res){
 })
 
 function md5Pwd(pwd) {
-  const salt = 'welcome_to_OutReach_kdiejf892k$';
+  const salt = 'welcome_to_Liepinus_kdiejf892k$';
   return utils.md5(utils.md5(pwd+salt));
 }
 

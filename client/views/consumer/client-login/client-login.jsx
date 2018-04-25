@@ -12,12 +12,14 @@ import Button from 'material-ui/Button'
 import List from 'material-ui/List';
 import TextField from 'material-ui/TextField'
 import Grid from 'material-ui/Grid';
+import Typography from 'material-ui/Typography';
 import { observer, inject } from 'mobx-react'
 
 import axios from 'axios'
 
 import clientLoginStyles from './client-login-styles'
 import ClientHeader from '../../components/header/client-business-header/client-header'
+import axiosHelper from '../../../config/axios-helper'
 
 @inject('appState') @observer
 
@@ -29,6 +31,7 @@ class ClientLogin extends React.Component {
 			usernameError: '',
 			password: '',
 			passwordError: '',
+			errorMsg: '',
 		}
 	}
 
@@ -66,29 +69,25 @@ class ClientLogin extends React.Component {
 				password: '',
 				passwordError: '',
 			})
+			axiosHelper.axiosClientLogin(this.state.username, this.state.password)
+			.then(loginData => {
+				const { code, data, msg } = loginData
+				if (code === 1) {
+					this.setState({ errorMsg: msg })
+				} else {
+					const {
+						_id,
+						user,
+						email,
+						type,
+					} = data
+					const isClientLogin = true
+					this.props.appState.clientRegisterInfo(_id, user, email, type, isClientLogin)
+					this.props.history.push('/client/dashboard')
+				}
+			})
+			.catch(error => console.error(error))
 		}
-		axios.post('/api/user/login', {
-			user: this.state.username,
-			pwd: this.state.password,
-		})
-		.then(res => {
-			if (res.status === 200 && res.data.code === 0) {
-				console.log('data from server: ', res.data)
-				console.log('success')
-				const {
-					_id,
-					user,
-					email,
-					type,
-				} = res.data.data
-				const isClientLogin = true
-				this.props.appState.clientRegisterInfo(_id, user, email, type, isClientLogin)
-				this.props.history.push('/client/dashboard')
-			} else {
-				console.log('data: ', res.data)
-			}
-		})
-		.catch(error => error)
 	}
 
 	handleRegister = () => {
@@ -129,6 +128,11 @@ class ClientLogin extends React.Component {
 										margin="normal"
 									/>
 									<FormHelperText id="name-error-text">{this.state.passwordError}</FormHelperText>
+								</List>
+								<List>
+									<Typography className={classes.errMsg}>
+										{this.state.errorMsg}
+									</Typography>
 								</List>
 							</FormControl>
 							<CardActions>

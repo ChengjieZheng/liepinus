@@ -9,18 +9,18 @@ import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
-import List from 'material-ui/List';
+import List from 'material-ui/List'
 import TextField from 'material-ui/TextField'
-import Grid from 'material-ui/Grid';
+import Grid from 'material-ui/Grid'
+import Typography from 'material-ui/Typography'
 // import { observer, inject } from 'mobx-react'
 // 如果props里面没有history，则使用如下方法获得
 // import { withRouter } from 'react-router-dom'
 // @withRouter
 
-import axios from 'axios'
-
 import clientRegisterStyles from './client-register-styles'
 import ClientHeader from '../../components/header/client-business-header/client-header'
+import axiosHelper from '../../../config/axios-helper'
 
 // @inject('appState') @observer
 
@@ -34,12 +34,9 @@ class ClientRegister extends React.Component {
 			passwordError: '',
 			email: '',
 			emailError: '',
+			errMsg: '',
 			type: 'client', //eslint-disable-line
 		}
-	}
-
-	componentDidMount() {
-		console.log(this.props)
 	}
 
   handleChange = prop => event => {
@@ -85,22 +82,31 @@ class ClientRegister extends React.Component {
 				emailError: '',
 				type: 'client', //eslint-disable-line
 			})
+			axiosHelper.axiosClientRegister(this.state.username, this.state.password, this.state.email, this.state.type)
+			.then(clientLoginData => {
+				if (clientLoginData.code === 1) {
+					this.setState({ errMsg: clientLoginData.msg })
+				} else if (clientLoginData === 0) {
+					console.log('Register info: ', clientLoginData.data)
+					console.log('Register success!')
+				}
+			})
 		}
-		axios.post('/api/user/register', {
-			user: this.state.username,
-			pwd: this.state.password,
-			email: this.state.email,
-			type: this.state.type,
-		})
-		.then(res => {
-			if (res.status === 200 && res.data.code === 0) {
-				console.log('data from server: ', res.data)
-				console.log('success')
-			} else {
-				console.log('error')
-			}
-		})
-		.catch(error => error)
+		// axios.post('/api/user/register', {
+		// 	user: this.state.username,
+		// 	pwd: this.state.password,
+		// 	email: this.state.email,
+		// 	type: this.state.type,
+		// })
+		// .then(res => {
+		// 	if (res.status === 200 && res.data.code === 0) {
+		// 		console.log('data from server: ', res.data)
+		// 		console.log('success')
+		// 	} else {
+		// 		console.log('error')
+		// 	}
+		// })
+		// .catch(error => error)
 	}
 
 	handleLogin = () => {
@@ -153,6 +159,11 @@ class ClientRegister extends React.Component {
 										margin="normal"
 									/>
 									<FormHelperText id="name-error-text">{this.state.emailError}</FormHelperText>
+								</List>
+								<List>
+									<Typography className={classes.errMsg}>
+										{this.state.errMsg}
+									</Typography>
 								</List>
 							</FormControl>
 							<CardActions>
