@@ -14,13 +14,20 @@ import List from 'material-ui/List'
 import ListItem from 'material-ui/List/ListItem'
 import ListItemIcon from 'material-ui/List/ListItemIcon'
 import ListItemText from 'material-ui/List/ListItemText'
+import { observer, inject } from 'mobx-react'
+import Avatar from 'material-ui/Avatar';
 
 // material-ui-icons
 import Menu from 'material-ui-icons/Menu'
 
 // import routes and styles
-import clientStatusRoutes from '../../../../config/client-status-routes'
-import clientBusinessHeaderStyles from './client-business-header-styles'
+import clientStatusRoutes from '../../../config/client-status-routes'
+import headerStyles from './header-styles'
+import { AppState } from '../../../store/app-state'
+import americaFlag from '../../assets/img/America-flag.png'
+import chineseFlag from '../../assets/img/chiese-flag.png'
+
+@inject('appState') @observer
 
 /* eslint-disable */
 class ClientHeader extends React.Component {
@@ -30,15 +37,21 @@ class ClientHeader extends React.Component {
 			open: false,
 		}
 		this.handleDrawerToggle = this.handleDrawerToggle.bind(this)
+		this.handleLangeChange = this.handleLangeChange.bind(this)
 	}
+
 	handleDrawerToggle() {
 		this.setState({open: !this.state.open})
 	}
+
+	handleLangeChange() {
+		this.props.appState.changeLanguage()
+	}
+
   render() {
     const { classes } = this.props
-    const list = (
-      <List className={classes.list}>
-				{clientStatusRoutes.map((prop, key) => {
+    const listItem = (
+				clientStatusRoutes.map((prop, key) => {
 					if (prop.redirect) {
 						return null
 					}
@@ -56,9 +69,8 @@ class ClientHeader extends React.Component {
 							</NavLink>
 						</ListItem>
 					)
-				})}
-      </List>
-    )
+				})
+		)
     return (
 			<AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.container}>
@@ -68,7 +80,28 @@ class ClientHeader extends React.Component {
             </Button>
           </div>
           <Hidden smDown implementation="css">
-            {list}
+						<List className={classes.list}>
+							{listItem}
+							<ListItem key="languageChange" className={classes.listItem}>
+								<ListItemIcon className={classes.languageFlag}>
+									{
+										this.props.appState.language
+										?
+										<Avatar
+											alt="America Flag"
+											src={americaFlag}
+											onClick={this.handleLangeChange}
+										/>
+										:
+										<Avatar
+											alt="Chinese Flag"
+											src={chineseFlag}
+											onClick={this.handleLangeChange}
+										/>
+									}
+								</ListItemIcon>
+							</ListItem>
+						</List>
           </Hidden>
           <Hidden mdUp>
             <IconButton
@@ -94,7 +127,7 @@ class ClientHeader extends React.Component {
                   keepMounted: true, // Better open performance on mobile.
                 }}
               >
-                {list}
+                {listItem}
               </Drawer>
             </Hidden>
           </Hidden>
@@ -108,4 +141,4 @@ ClientHeader.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(clientBusinessHeaderStyles)(ClientHeader)
+export default withStyles(headerStyles)(ClientHeader)

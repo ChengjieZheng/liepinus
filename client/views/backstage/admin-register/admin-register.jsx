@@ -13,16 +13,13 @@ import List from 'material-ui/List'
 import TextField from 'material-ui/TextField'
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
-// import { observer, inject } from 'mobx-react'
 // 如果props里面没有history，则使用如下方法获得
 // import { withRouter } from 'react-router-dom'
 // @withRouter
 
-import clientRegisterStyles from './client-register-styles'
-import ClientHeader from '../../components/header/client-business-header/client-header'
+import clientRegisterStyles from './admin-register-styles'
+import Header from '../../components/header/header'
 import axiosHelper from '../../../config/axios-helper'
-
-// @inject('appState') @observer
 
 class ClientRegister extends React.Component {
 	constructor(props) {
@@ -117,7 +114,7 @@ class ClientRegister extends React.Component {
 		const { classes } = this.props
 		return (
 			<div>
-				<ClientHeader />
+				<Header />
 				<Grid container spacing={24}>
 					<Grid item xs={1} sm={3} />
 					<Grid item xs={10} sm={6} >
@@ -160,11 +157,17 @@ class ClientRegister extends React.Component {
 									/>
 									<FormHelperText id="name-error-text">{this.state.emailError}</FormHelperText>
 								</List>
-								<List>
-									<Typography className={classes.errMsg}>
-										{this.state.errMsg}
-									</Typography>
-								</List>
+								{
+									this.state.errMsg !== ''
+									?
+									<List>
+										<Typography className={classes.errMsg}>
+											{this.state.errMsg}
+										</Typography>
+									</List>
+									:
+									null
+								}
 							</FormControl>
 							<CardActions>
 								<Button size="large" fullWidth color="secondary" onClick={this.handleSubmit}>Register</Button>

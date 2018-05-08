@@ -4,7 +4,10 @@ import {
 	boxShadow,
 	transition,
 	drawerWidth,
-} from '../../../assets/jss/index'
+} from '../../assets/jss/index'
+
+import chineseFlag from '../../assets/img/chiese-flag.png'
+import americaFlag from '../../assets/img/America-flag.png'
 
 const clientBusinessHeaderStyles = theme => ({
   appBar: {
@@ -65,7 +68,8 @@ const clientBusinessHeaderStyles = theme => ({
       zIndex: '999',
       width: '100%',
       paddingRight: '15px',
-    },
+		},
+		cursor: 'pointer',
   },
 	navLink: {
     color: '#FFFFFF',
@@ -143,9 +147,19 @@ const clientBusinessHeaderStyles = theme => ({
     '&:after': {
       background: '#000',
       opacity: '.8',
-    },
+		},
+		languageFlag: {
+			// marginTop: '20px',
+			// top: '0px',
+			position: 'relative',
+			marginRight: '3px',
+			width: '100%',
+			height: '100%',
+			verticalAlign: 'middle',
+			color: 'inherit',
+			display: 'inline-block',
+		},
   },
-
 })
 
 export default clientBusinessHeaderStyles

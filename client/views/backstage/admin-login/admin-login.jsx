@@ -17,8 +17,8 @@ import { observer, inject } from 'mobx-react'
 
 import axios from 'axios'
 
-import clientLoginStyles from './client-login-styles'
-import ClientHeader from '../../components/header/client-business-header/client-header'
+import clientLoginStyles from './admin-login-styles'
+import Header from '../../components/header/header'
 import axiosHelper from '../../../config/axios-helper'
 
 @inject('appState') @observer
@@ -98,7 +98,7 @@ class ClientLogin extends React.Component {
 		const { classes } = this.props
 		return (
 			<div>
-				<ClientHeader />
+				<Header />
 				<Grid container spacing={24}>
 					<Grid item xs={1} sm={3} />
 					<Grid item xs={10} sm={6} >
@@ -129,11 +129,18 @@ class ClientLogin extends React.Component {
 									/>
 									<FormHelperText id="name-error-text">{this.state.passwordError}</FormHelperText>
 								</List>
-								<List>
-									<Typography className={classes.errMsg}>
-										{this.state.errorMsg}
-									</Typography>
-								</List>
+								{
+									this.state.errMsg !== ''
+									?
+									<List>
+										<Typography className={classes.errMsg}>
+											{this.state.errorMsg}
+										</Typography>
+									</List>
+									:
+									null
+								}
+
 							</FormControl>
 							<CardActions>
 								<Button size="large" fullWidth color="secondary" onClick={this.handleLogin}>Login</Button>

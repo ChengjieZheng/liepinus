@@ -4,64 +4,39 @@ import Fingerprint from 'material-ui-icons/Fingerprint';
 import MonetizationOn from 'material-ui-icons/MonetizationOn';
 import LockOpen from 'material-ui-icons/LockOpen';
 import Dashboard from 'material-ui-icons/Dashboard'
-import ClientRegister from '../views/consumer/client-register/client-register'
 
 const clientStatusRoutes = [
   {
     path: '/#',
-    name: 'Home Page',
-    short: 'Home',
-    mini: 'HP',
-    icon: Dashboard,
-    // component: RegisterPage
-  },
-  {
-    path: '/#',
-    name: 'Products',
-    short: 'Products',
-    mini: 'PD',
-    icon: Fingerprint,
+    name: 'Client',
+    short: 'Explore Course',
+    mini: 'EC',
+    icon: PersonAdd,
     // component: LoginPage
   },
   {
-    path: '/#',
-    name: 'Job Page',
-    short: 'Job',
-    mini: 'JB',
-    icon: MonetizationOn,
-    // component: PricingPage
-  },
-  {
-    path: '/#',
+    path: '/events',
     name: 'Events Page',
     short: 'Events',
     mini: 'EP',
-    icon: LockOpen,
+    icon: Fingerprint,
     // component: LockScreenPage
   },
   {
-    path: '/#',
-    name: 'About Page',
-    short: 'About',
-    mini: 'LSP',
+    path: '/business',
+    name: 'Business Page',
+    short: 'Business',
+    mini: 'BP',
     icon: LockOpen,
     // component: LockScreenPage
 	},
-	{
-    path: '/#',
-    name: 'Chinese Or English Button',
-    short: 'Chinese / English',
-    mini: 'COEB',
-    icon: LockOpen,
-    // component: LockScreenPage
-  },
   {
-    path: '/client/register',
+    path: '/c.liepin.com',
     name: 'Login And Register Page',
-    short: 'Login / Register',
+    short: 'Start Learning',
     mini: 'LRP',
-    icon: PersonAdd,
-    component: ClientRegister,
+    icon: MonetizationOn,
+    // component: ClientRegister,
   },
   {
     redirect: true,
