@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^1.1.0",
     "@material-ui/icons": "^1.0.0-beta.42",
     "axios": "^0.18.0",
     "babel-loader": "^7.1.4",
@@ -37,16 +38,18 @@
     "mongoose": "^5.0.15",
     "prop-types": "^15.6.1",
     "query-string": "^5.0.0",
-    "react": "^16.2.0",
+    "react": "^16.4.1",
     "react-async-bootstrapper": "^1.1.2",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.4.1",
     "react-helmet": "^5.2.0",
     "react-jss": "^8.4.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "serialize-javascript": "^1.4.0",
     "serve-favicon": "^2.5.0",
-    "utility": "^1.13.1"
+    "utility": "^1.13.1",
+    "react-google-maps": "^9.4.5",
+    "recompose": "^0.27.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
